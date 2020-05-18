@@ -22,3 +22,6 @@ gen
 # Others
 *.zip
 *.out
+
+# Meta info
+/META-INF/
