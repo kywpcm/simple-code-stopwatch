@@ -1,0 +1,27 @@
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Eclipse
+.project
+.classpath
+.settings/
+/bin/
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# Build
+/build/
+*/target/
+.gradle/
+
+# Others
+*.zip
+*.out
+
+# Meta info
+/META-INF/
