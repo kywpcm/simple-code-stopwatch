@@ -21,30 +21,66 @@ public class StopWatch {
     }
 
     /**
-     * Get the time(ms) that has passed since start. Time is not reset.
-     * @return time(ms) that has passed since start. If split without starting, -1 is returned.
+     * Get the time(sec) that has passed since start. Time is not reset.
+     *
+     * @return time(sec) that has passed since start. If split without starting, -1.0 is returned.
      */
-    public long split() {
-        if (time.get() <= 0) {
-            return -1;
-        }
+    public double split() {
+        if (isInvalidTime())
+            return -1.0;
 
-        return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - time.get());
+        long durationTime = System.nanoTime() - time.get();
+
+        return TimeUnit.NANOSECONDS.toMillis(durationTime) / 1000.0;
     }
 
     /**
-     * Get the duration time(ms) between start and end. Time is reset.
+     * Get the time by unit that has passed since start. Time is not reset.
      *
-     * @return Total duration time(ms). If stop without starting, -1 is returned.
+     * @param unit StopWatchUnit.NANOSECONDS, StopWatchUnit.MICROSECONDS, StopWatchUnit.MILLISECONDS, ...
+     * @return time by unit that has passed since start. If split without starting, -1 is returned.
      */
-    public long stop() {
-        if (time.get() <= 0) {
+    public long split(StopWatchUnit unit) {
+        if (isInvalidTime())
             return -1;
-        }
 
-        long duration = System.nanoTime() - time.get();
+        long durationTime = System.nanoTime() - time.get();
+
+        return unit.getTime(durationTime);
+    }
+
+    /**
+     * Get the duration time(sec) between start and end. Time is reset.
+     *
+     * @return Total duration time(sec). If stop without starting, -1.0 is returned.
+     */
+    public double stop() {
+        if (isInvalidTime())
+            return -1.0;
+
+        long durationTime = System.nanoTime() - time.get();
         time.set(0L);
 
-        return TimeUnit.NANOSECONDS.toMillis(duration);
+        return TimeUnit.NANOSECONDS.toMillis(durationTime) / 1000.0;
+    }
+
+    /**
+     * Get the duration time by unit between start and end. Time is reset.
+     *
+     * @param unit StopWatchUnit.NANOSECONDS, StopWatchUnit.MICROSECONDS, StopWatchUnit.MILLISECONDS, ...
+     * @return Total duration time by unit. If stop without starting, -1 is returned.
+     */
+    public long stop(StopWatchUnit unit) {
+        if (isInvalidTime())
+            return -1;
+
+        long durationTime = System.nanoTime() - time.get();
+        time.set(0L);
+
+        return unit.getTime(durationTime);
+    }
+
+    private boolean isInvalidTime() {
+        return time.get() <= 0;
     }
 }
