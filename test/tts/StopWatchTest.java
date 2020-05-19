@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 
 /**
- * Created by Kwon Youngwoo on 2020.05.18 5:39 오후
+ * Created by Max Kwon
  */
 public class StopWatchTest {
 
