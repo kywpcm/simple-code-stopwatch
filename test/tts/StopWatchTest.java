@@ -2,6 +2,7 @@ package tts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 
 /**
@@ -21,12 +22,12 @@ public class StopWatchTest {
 
         sw.start();
         Thread.sleep(1000);
-        long dur1 = sw.split();
+        double dur1 = sw.split();
         System.out.println(dur1);
 //        assertThat(dur1).isEqualTo(1000);
 
         Thread.sleep(3000);
-        long dur2 = sw.split();
+        double dur2 = sw.split();
 //        assertThat(dur2).isEqualTo(3000);
         System.out.println(dur2);
     }
@@ -34,7 +35,7 @@ public class StopWatchTest {
     @Test
     public void stop() throws InterruptedException {
         StopWatch sw = new StopWatch();
-        long ret = sw.stop();
+        double ret = sw.stop();
         assertThat(ret).isEqualTo(-1);
 
         sw.start();
@@ -51,26 +52,20 @@ public class StopWatchTest {
         assertThat(sw.stop()).isEqualTo(-1);
 
         sw.start();
-        System.out.println(sw.split());
-        System.out.println(sw.split());
-        System.out.println(sw.split());
-        Thread.sleep(1500);
-        System.out.println(sw.split());
-        Thread.sleep(1000);
-        System.out.println(sw.stop());
 
-        sw.start();
+        Thread.sleep(2000);
         System.out.println(sw.split());
-        System.out.println(sw.split());
-        System.out.println(sw.split());
-        Thread.sleep(2200);
-        System.out.println(sw.split());
-        Thread.sleep(4700);
-        System.out.println(sw.split());
-        System.out.println(sw.split());
-        System.out.println(sw.split());
-        Thread.sleep(100);
+        System.out.println(sw.split(StopWatchUnit.NANOSECONDS));
+        System.out.println(sw.split(StopWatchUnit.MICROSECONDS));
+        System.out.println(sw.split(StopWatchUnit.MILLISECONDS));
+        System.out.println(sw.split(StopWatchUnit.MINUTES));
+        System.out.println(sw.split(StopWatchUnit.HOURS));
+        System.out.println(sw.split(StopWatchUnit.DAYS));
+
+        System.out.println("========================");
+
+        Thread.sleep(3000);
         System.out.println(sw.stop());
-        System.out.println(sw.stop());
+//        System.out.println(sw.stop(StopWatchUnit.MILLISECONDS));
     }
 }
