@@ -16,7 +16,7 @@ gen
 
 # Build
 /build/
-*/target/
+target/
 .gradle/
 
 # Others
